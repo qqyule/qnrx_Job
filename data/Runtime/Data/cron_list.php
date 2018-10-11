@@ -20,7 +20,7 @@ return array (
     'hour' => '-1',
     'minute' => '1',
     'name' => 'ClearPromotion',
-    'start' => 1539226860,
+    'start' => 1539230460,
   ),
   3 => 
   array (
@@ -42,7 +42,7 @@ return array (
     'hour' => '-1',
     'minute' => '10',
     'name' => 'AutoRefreshResume',
-    'start' => 1539223800,
+    'start' => 1539227400,
   ),
   5 => 
   array (
@@ -53,7 +53,7 @@ return array (
     'hour' => '-1',
     'minute' => '10',
     'name' => 'AutoRefreshJobs',
-    'start' => 1539223800,
+    'start' => 1539227400,
   ),
   6 => 
   array (
@@ -64,7 +64,7 @@ return array (
     'hour' => '-1',
     'minute' => '1',
     'name' => 'ClearExpiredSetmeal',
-    'start' => 1539226860,
+    'start' => 1539230460,
   ),
   7 => 
   array (
