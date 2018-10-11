@@ -1,1 +1,0 @@
-<?php	return array ( 'agreement' => '请完善注册协议', ); ?>

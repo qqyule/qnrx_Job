@@ -1,1 +1,0 @@
-<?php	return array ( 'qscms' => array ( 'alias' => 'qscms', 'id' => '1', 'name' => '骑士人才系统', 'filing' => '0', 'config' => '', ), ); ?>

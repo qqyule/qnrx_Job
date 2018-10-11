@@ -1,1 +1,0 @@
-<?php	return array ( 0 => 'role_id', 1 => 'menu_id', '_type' => array ( 'role_id' => 'int(10)', 'menu_id' => 'smallint(6)', ), ); ?>

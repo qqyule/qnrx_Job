@@ -1,1 +1,0 @@
-<?php	return array ( 'sina' => array ( 'alias' => 'sina', 'name' => '新浪微博', 'config' => '', ), 'qq' => array ( 'alias' => 'qq', 'name' => '腾讯QQ', 'config' => '', ), ); ?>

@@ -1,7 +1,7 @@
 #缓存
-/data/Runtime/Cache
-/data/Runtime/Temp
-/data/Runtime/Log
+/data/Runtime/Cache/
+/data/Runtime/Temp/
+/data/Runtime/Log/
 
 #冗余文件
 *.lnk

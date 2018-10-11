@@ -1,1 +1,0 @@
-<?php	return array ( 0 => 'id', 1 => 'cat', 2 => 'name', 3 => 'value', 4 => 'price', 5 => 'sort', '_pk' => 'id', '_type' => array ( 'id' => 'int(10) unsigned', 'cat' => 'varchar(30)', 'name' => 'varchar(30)', 'value' => 'int(10) unsigned', 'price' => 'varchar(10)', 'sort' => 'int(10) unsigned', ), ); ?>
