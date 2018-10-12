@@ -3,10 +3,10 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>网站后台管理中心- Powered by 74cms.com</title>
+	<title>网站后台管理中心- Powered by qnz.com.cn</title>
 	<link rel="shortcut icon" href="<?php echo C('qscms_site_dir');?>favicon.ico"/>
-	<meta name="author" content="骑士CMS" />
-	<meta name="copyright" content="74cms.com" />
+	<meta name="author" content="黔南热线" />
+	<meta name="copyright" content="黔南热线" />
 	<link href="__ADMINPUBLIC__/css/common.css" rel="stylesheet" type="text/css">
 	<script src="__ADMINPUBLIC__/js/jquery.min.js"></script>
 	<script src="__ADMINPUBLIC__/js/jquery.highlight-3.js"></script>
@@ -95,8 +95,8 @@
 </div>
 <!-- public:footer 以下内容 -->
 <div class="footer link_blue">
-    Powered by <a href="http://www.74cms.com" target="_blank"><span style="color:#009900">74</span><span
-        style="color: #FF3300">cms</span></a> v<?php echo C('QSCMS_VERSION');?>
+    Powered by <a href="http://www.qnz.com.cn" target="_blank"><span
+        style="color: #FF3300">黔南热线</span></a> v0.1.<?php echo C('QSCMS_VERSION');?>
 </div>
 <!-- public:footer 以上内容 -->
 <script type="text/javascript">
