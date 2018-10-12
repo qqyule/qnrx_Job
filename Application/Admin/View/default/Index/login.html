@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=7">
     <link rel="shortcut icon" href="{:C('qscms_site_dir')}favicon.ico"/>
-    <meta name="author" content="骑士CMS"/>
-    <meta name="copyright" content="74cms.com"/>
-    <title>网站后台管理中心- Powered by 74CMS</title>
+    <meta name="author" content="黔南热线" />
+    <meta name="copyright" content="黔南热线"/>
+    <title>网站后台管理中心- Powered by qnz.com.cn</title>
     <link href="__ADMINPUBLIC__/css/common.css" rel="stylesheet" type="text/css"/>
 </head>
 <body style="background-color:#FFFFFF">
@@ -41,16 +41,19 @@
 </form>
 
 <div class="login_foot link_blue">
-    74cms是一个采用 PHP 和 MySQL 构建的高效人才系统解决方案 <a href="http://ask.74cms.com/" target="_blank">技术论坛</a><br/>
-    Powered by <a href="http://www.74cms.com/" target="_blank"><em>74cms v {:C('QSCMS_VERSION')} </em></a> Copyright &copy;{:date('Y')}
+    Powered by <a href="http://www.qnz.com.cn/" target="_blank"><em>黔南热线</em></a> Copyright &copy;{:date('Y')}
 </div>
 
 <script src="__ADMINPUBLIC__/js/jquery.min.js"></script>
+<!-- 上线后替换 -->
+<!-- <script src="//lib.baomitu.com/jquery/1.7.2/jquery.min.js"></script> -->
+<!-- 验证库 -->
 <script src="http://static.geetest.com/static/tools/gt.js"></script>
 <script language="javascript">
     function init() {
         var ctrl = document.getElementById("username");
         ctrl.focus();
+        // 聚焦光标到用户名
     }
     init();
     $(document).ready(function () {
@@ -58,6 +61,7 @@
             if (event.keyCode == "13") {
                 $("#J_dologin").click();
             }
+            // 响应回车
         });
         $('#J_dologin').live('click', function () {
             if ("{$verify_userlogin_admin}" == 1) {

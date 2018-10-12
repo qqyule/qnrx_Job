@@ -71,12 +71,10 @@
 </script>
 
 <div class="toptit">骑士cms人才系统</div>
-<div class="mainli">系统当前版本：v{:C('QSCMS_VERSION')}<span id="update_notice"></span></div>
-<div class="mainli link_blue">认证授权：<span id="certification">载入中...</span></div>
-<div class="mainli link_blue">骑士官网：<a href="http://www.74cms.com" target="_blank">www.74cms.com</a></div>
-<div class="mainli">程序开发：74CMS程序开发组</div>
-<div class="mainli">版权所有：骑士CMS</div>
-<div class="mainli link_blue">官方论坛：<a href="http://ask.74cms.com/" target="_blank">ask.74cms.com</a></div>
+<div class="mainli">系统当前版本：v0.1.{:C('QSCMS_VERSION')}<span id="update_notice"></span></div>
+<div class="mainli">程序开发：黔南热线网络有限责任公司</div>
+<div class="mainli">版权所有：黔南热线网络有限责任公司</div>
+<div class="mainli link_blue">官方网站：<a href="http://www.qnz.com.cn" target="_blank">www.qnz.com.cn</a></div>
 <div class="clear"></div>
 
 <div class="toptit">服务器信息</div>
@@ -86,15 +84,6 @@
 <div class="mainli">服务器软件：{$system_info.web_server}</div>
 <div class="clear"></div>
 
-<div class="toptit">官方动态</div>
-<table width="100%" border="0" cellspacing="0" cellpadding="4">
-    <tr>
-        <td style=" line-height:220%; padding-left:40px;" class="link_blue">
-            <span id="announcement" class="link_lan">载入中...</span>
-        </td>
-    </tr>
-</table>
-<script src="http://www.74cms.com/plus/external.php?version={$system_info.version}&release={$system_info.release}&certification={:C('qscms_site_domain')}&announcement=1" language="javascript"></script>
 </div>
 
 <include file="public:footer"/>
