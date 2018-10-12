@@ -64,9 +64,12 @@
             else
             {
                 $("#"+i).html('+'+result.data[i]);
+                $("#"+i).css({"background-color":"red", "color":"white"});
+                //更新颜色提示 2018-10-12
             }
 
         }
+        // 若今天有数据更新，则数字提醒
     });
 </script>
 
