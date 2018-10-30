@@ -11,9 +11,9 @@ return array (
   ),
   'SESSION_OPTIONS' => 
   array (
-    'path' => 'D:\WWW\74cms\data\session',
+    'path' => 'F:\web\qnrx_job\data\session',
   ),
   'COOKIE_PATH' => '/',
-  'QSCMS_VERSION' => '4.2.131',
-  'QSCMS_RELEASE' => '2018-09-27 10:53:08',
+  'QSCMS_VERSION' => '4.2.134',
+  'QSCMS_RELEASE' => '2018-10-30 10:53:08',
 );

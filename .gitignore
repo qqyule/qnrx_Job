@@ -1,5 +1,8 @@
 #缓存
 /data/Runtime/
+/data/Runtime/*.php
+/data/statistics/
+/data/session/
 
 #冗余文件
 *.lnk
