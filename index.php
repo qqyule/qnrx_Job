@@ -43,6 +43,6 @@ define('ONLINE_ROLLBACK_PATH', QSCMS_DATA_PATH . 'online_rollback');
 define('APP_SPELL',true);
 define('APP_DEVELOPER',false);//如对系统构架未做深入了解，请务开启此项，已免产生不可回逆的系统错误！
 define('APP_DEBUG', false);// 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
-define('APP_UPDATER',true);// 开启在线升级 系统经过二次开发不建议开启此功能，升级会覆盖原有文件。
+define('APP_UPDATER',false);// 开启在线升级 系统经过二次开发不建议开启此功能，升级会覆盖原有文件。
 define('QISHI_CHARSET','utf8');
 require './ThinkPHP/ThinkPHP.php';

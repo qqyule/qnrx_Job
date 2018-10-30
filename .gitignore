@@ -10,7 +10,7 @@
 *.log
 Thumbs.db
 ehthumbs.db
-Desktop.ini
+desktop.ini
 $RECYCLE.BIN/
 .DS_Store
 node_modules/
