@@ -745,7 +745,7 @@ class MembersController extends FrontendController{
         $rand=getmobilecode();
         $sendSms = array('mobile'=>$mobile,'tpl'=>'set_mobile_verify','data'=>array('rand'=>$rand.'','sitename'=>C('qscms_site_name')));
         if (true === $reg = D('Sms')->sendSms('captcha',$sendSms)){
-            session('verify_mobile',array('mobile'=>$mobile,'rand'=>$rand,'time'=>time()));
+            session('verify_mobile',array('mobile'=>$mobile,'rand'=>substr(md5($rand), 8,16),'time'=>time()));
             session('_verify_num_check',null);
             $this->ajaxReturn(1,'验证码发送成功！');
         }else{
@@ -757,7 +757,7 @@ class MembersController extends FrontendController{
      */
     public function verify_mobile_code(){
         $verify = session('verify_mobile');
-        if(true !== $tip = verify_mobile('',$verify,I('post.verifycode', 0, 'intval'))) $this->ajaxReturn(0, $tip);
+        if(true !== $tip = verify_mobile($verify['mobile'],$verify,I('post.verifycode', 0, 'intval'))) $this->ajaxReturn(0, $tip);
         $setsqlarr['mobile'] = $verify['mobile'];
         $setsqlarr['mobile_audit']=1;
         $uid=C('visitor.uid');
