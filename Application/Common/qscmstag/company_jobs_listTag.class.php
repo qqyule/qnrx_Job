@@ -101,8 +101,9 @@ class company_jobs_listTag {
         if($this->params['page']){
             if($result['total'] = $model->where($this->where)->order($this->order)->count('distinct uid')){
                 $pager = pager($result['total'],$this->spage_size);
-                $company_info = $model->where($this->where)->order($this->order)->limit($pager->firstRow . ',' .$this->spage_size)->group('uid')->getfield('distinct uid,count(id) as jobs_num');
-                $pager->path = $this->params['listpage'];
+                $sql = $model->where($this->where)->order($this->order)->buildSql();
+                $company_info = $model->table($sql.C('DB_PREFIX')."jobs_search")->order($this->order)->limit($this->spage_size)->group('uid')->getfield('distinct uid,count(id) as jobs_num');
+                //echo $model->getLastSql();
                 $pager->showname = $this->params['listpage'];
                 $result['page'] = $pager->fshow();
                 $result['page_params'] = $pager->get_page_params();
@@ -110,14 +111,18 @@ class company_jobs_listTag {
                 $result['page'] = '';
             }
         }else{
-            $company_info = $model->where($this->where)->order($this->order)->limit($this->firstRow . ',' .$this->spage_size)->group('uid')->getfield('distinct uid,count(id) as jobs_num');
+            $sql = '('.$model->where($this->where)->order($this->order)->select(false).')';
+            $company_info = $model->table($sql.C('DB_PREFIX')."jobs_search")->order($this->order)->limit($this->spage_size)->group('uid')->getfield('distinct uid,count(id) as jobs_num');
+            //echo $model->getLastSql();
             $result['page'] = '';
             $result['total'] = 0;
         }
         if($company_info){
             $cids = array_keys($company_info);
+            
             $field_famous = C('apply.Sincerity')?',famous':'';
             $company = M('CompanyProfile')->where(array('uid'=>array('in',$cids)))->order('refreshtime desc')->getfield('id,uid,audit,companyname,nature_cn,district_cn,addtime,refreshtime,logo,short_name'.$field_famous);
+           
             $cids = array();
             foreach ($company as $key => $val) {
                 $company[$key]['jobs_num'] = $company_info[$key];

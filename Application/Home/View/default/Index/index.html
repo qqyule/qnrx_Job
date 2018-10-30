@@ -451,11 +451,19 @@
                     <div class="hs_12"></div>
                     <div class="gm_other">{:C('qscms_index_bottom_info')}</div>
                 </div>
-                <div class="gm_right">
-                    <div class="hs_20"></div>
-                    <a href="javascript:;" id="J_reg" class="gm_btn">立即加入</a>
-                    <input type="hidden" id="JRegHidVal" value="{:C('qscms_rapid_registration_resume')}" />
-                </div>
+				<if condition="$visitor['uid']">
+                    <div class="gm_right">
+                        <div class="hs_20"></div>
+                        <a href="{:U('members/index',array('uid'=>$visitor['uid']))}"  class="gm_btn">会员中心</a>
+                        <input type="hidden" id="JRegHidVal" value="{:C('qscms_rapid_registration_resume')}" />
+                    </div>
+				<else/>
+    				<div class="gm_right">
+                        <div class="hs_20"></div>
+                        <a href="javascript:;" id="J_reg" class="gm_btn">立即加入</a>
+                        <input type="hidden" id="JRegHidVal" value="{:C('qscms_rapid_registration_resume')}" />
+                    </div>
+				</if>
                 <div class="clear"></div>
             </div>
         </div>

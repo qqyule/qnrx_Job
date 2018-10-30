@@ -2,7 +2,7 @@
 namespace Admin\Controller;
 use Common\Controller\BackendController;
 class CompanyMembersController extends BackendController{
-	public function _initialize() {
+    public function _initialize() {
         parent::_initialize();
         $this->_mod = D('Members');
     }
@@ -67,7 +67,10 @@ class CompanyMembersController extends BackendController{
      * 删除会员
      */
     public function delete(){
-        $tuid = I('post.tuid','trim','trim')!=''?I('post.tuid'):$this->error('你没有选择会员！');
+        $tuid = I('request.tuid');
+        if(!$tuid){
+            $this->error('你没有选择会员！');
+        }
         $sitegroup_uids = M('Members')->where(array('uid'=>array('in',$tuid)))->getField('sitegroup_uid',true);
         if(false===D('Members')->delete_member($tuid)) $this->error('删除会员失败！');
         $type['_user'] = 1;

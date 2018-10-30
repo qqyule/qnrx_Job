@@ -1095,3 +1095,19 @@ function get_city_info($ids){
     }
     return array('district'=>implode(',',$district),'district_cn_all'=>implode(',',$district_cn_all),'district_cn'=>implode(',',$district_cn),'district_spell'=>implode(',',$district_spell));
 }
+function verify_mobile($mobile,$smsVerify,$vcode_sms){
+    if(!$vcode_sms) return '请输入验证码！';
+    $verify_num = session('_verify_num_check');
+    if($verify_num >= C('VERIFY_NUM_CHECK')) return '非法操作！';
+    if(!fieldRegex($mobile, 'mobile')) return '手机号格式错误！';
+    if(!$smsVerify) return '短信验证码错误！';
+    if($mobile != $smsVerify['mobile']) return '手机号不一致！';
+    if(time() > $smsVerify['time'] + 600) return '短信验证码已过期！';
+    $mobile_rand = substr(md5($vcode_sms), 8, 16);
+    if($mobile_rand != $smsVerify['rand']){
+        session('_verify_num_check',++$verify_num);
+        return '短信验证码错误！';
+    }
+    session('_verify_num_check',null);
+    return true;
+}

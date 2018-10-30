@@ -1006,7 +1006,7 @@ class PersonalController extends FrontendController{
         }
         //$data['title'] = I('post.title','','trim,badword');
         $data['img'] = $img['img'];
-        $reg = D('ResumeImg')->save_resume_img($data);
+        $reg = D('ResumeImg')->save_resume_img($data,C('visitor'));
         if($reg['state'])
         {
             D('Resume')->check_resume(C('visitor.uid'),intval($data['resume_id']));//更新简历完成状态

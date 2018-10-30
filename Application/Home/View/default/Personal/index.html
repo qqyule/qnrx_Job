@@ -190,7 +190,7 @@
 									<td class="w1"><span>&nbsp;</span>姓名：</td>
 									<td>
 										<div class="input_205_34_div2">
-											<input name="fullname" id="fullname" type="text"  onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5]/g,'')" dir="no_focus" class="inputst" value="{$resume_info.fullname}"/>
+											<input name="fullname" id="fullname" type="text" dir="no_focus" class="inputst" value="{$resume_info.fullname}"/>
 											<div class="righttxt J_tooltip J_listitme_parent">
 												<span class="J_listitme_text">
 													<switch name="resume_info['display_name']">
@@ -1687,6 +1687,7 @@
 		$('.J_saveitems_baseinfo').live('click', function(e) {
 			// 提交之前先验证
 			var fullnameValue = $.trim($('#fullname').val());
+			var str=/[^\u4e00-\u9fa5]/g;
 			var displaynameValue = $.trim($('#display_name').val());
 			var sexValue = $.trim($('#sex').val());
 			var birthdateValue = $.trim($('#birthdate').val());
@@ -1706,6 +1707,11 @@
 				disapperTooltip("remind", "请填写姓名");
 				return false;
 			}
+			if(str.test(fullnameValue)){
+			  disapperTooltip("remind", "简历姓名必须是纯汉字");
+			  return false;
+              
+		  }
 			if (displaynameValue == "") {
 				disapperTooltip("remind", "请选择简历保密方式");
 				return false;

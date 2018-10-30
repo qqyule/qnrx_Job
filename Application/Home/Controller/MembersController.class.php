@@ -33,14 +33,8 @@ class MembersController extends FrontendController{
             }
             $passport = $this->_user_server();
             if($mobile = I('post.mobile','','trim')){
-                if(!fieldRegex($mobile,'mobile')) $this->ajaxReturn(0,'手机号格式错误！');
                 $smsVerify = session('login_smsVerify');
-                !$smsVerify && $this->ajaxReturn(0,'验证码错误！');//验证码错误！
-                if($mobile != $smsVerify['mobile']) $this->ajaxReturn(0,'手机号不一致！');//手机号不一致
-                if(time()>$smsVerify['time']+600) $this->ajaxReturn(0,'验证码过期！');//验证码过期
-                $vcode_sms = I('post.mobile_vcode',0,'intval');
-                $mobile_rand=substr(md5($vcode_sms), 8,16);
-                if($mobile_rand!=$smsVerify['rand']) $this->ajaxReturn(0,'验证码错误！');//验证码错误！
+                if(true !== $tip = verify_mobile($mobile,$smsVerify,I('post.mobile_vcode', 0, 'intval'))) $this->ajaxReturn(0, $tip);
                 $user = M('Members')->where(array('mobile'=>$smsVerify['mobile']))->find();
                 if($user){
                     $uid = $user['uid'];
@@ -234,12 +228,7 @@ class MembersController extends FrontendController{
             if($data['reg_type'] == 1){
                 $data['mobile'] = I('post.mobile',0,'trim');
                 $smsVerify = session('reg_smsVerify');
-                if(!$smsVerify) $this->ajaxReturn(0,'验证码错误！');
-                if($data['mobile'] != $smsVerify['mobile']) $this->ajaxReturn(0,'手机号不一致！',$smsVerify);//手机号不一致
-                if(time()>$smsVerify['time']+600) $this->ajaxReturn(0,'验证码过期！');//验证码过期
-                $vcode_sms = I('post.mobile_vcode',0,'intval');
-                $mobile_rand=substr(md5($vcode_sms), 8,16);
-                if($mobile_rand!=$smsVerify['rand']) $this->ajaxReturn(0,'验证码错误！');//验证码错误！
+                if(true !== $tip = verify_mobile($data['mobile'],$smsVerify,I('post.mobile_vcode', 0, 'intval'))) $this->ajaxReturn(0, $tip);
             }
             if(C('qscms_register_password_open')){
                 $data['password'] = I('post.password','','trim');
@@ -413,6 +402,7 @@ class MembersController extends FrontendController{
         $sendSms['mobile']=$mobile;
         if(true === $reg = D('Sms')->sendSms('captcha',$sendSms)){
             session($sms_type.'_smsVerify',array('rand'=>substr(md5($rand), 8,16),'time'=>time(),'mobile'=>$mobile));
+            session('_verify_num_check',null);
             $this->ajaxReturn(1,'手机验证码发送成功！');
         }else{
             $this->ajaxReturn(0,$reg);
@@ -756,6 +746,7 @@ class MembersController extends FrontendController{
         $sendSms = array('mobile'=>$mobile,'tpl'=>'set_mobile_verify','data'=>array('rand'=>$rand.'','sitename'=>C('qscms_site_name')));
         if (true === $reg = D('Sms')->sendSms('captcha',$sendSms)){
             session('verify_mobile',array('mobile'=>$mobile,'rand'=>$rand,'time'=>time()));
+            session('_verify_num_check',null);
             $this->ajaxReturn(1,'验证码发送成功！');
         }else{
             $this->ajaxReturn(0,$reg);
@@ -765,9 +756,8 @@ class MembersController extends FrontendController{
      * [verify_mobile_code 验证手机验证码]
      */
     public function verify_mobile_code(){
-        $verifycode=I('post.verifycode',0,'intval');
         $verify = session('verify_mobile');
-        if (!$verifycode || !$verify['rand'] || $verifycode<>$verify['rand']) $this->ajaxReturn(0,'验证码错误!');
+        if(true !== $tip = verify_mobile('',$verify,I('post.verifycode', 0, 'intval'))) $this->ajaxReturn(0, $tip);
         $setsqlarr['mobile'] = $verify['mobile'];
         $setsqlarr['mobile_audit']=1;
         $uid=C('visitor.uid');

@@ -108,7 +108,12 @@ class MembersModel extends Model{
 		if($user['utype'] == 1){
 			// 企业分配顾问
 			D('Consultant')->set_consultant($user);
-			D('MembersSetmeal')->set_members_setmeal($user['uid'],C('qscms_reg_service'));
+			if($user['reg_service']){
+				$reg_service = $user['reg_service'];
+			}else{
+				$reg_service = C('qscms_reg_service');
+			}
+			D('MembersSetmeal')->set_members_setmeal($user['uid'],$reg_service);
 			D('TaskLog')->do_task($userinfo,17);
 			if($user['mobile_audit'] && $user['mobile']){
 				D('TaskLog')->do_task($user,22);
@@ -424,7 +429,7 @@ class MembersModel extends Model{
             }
         }
         if ($info['utype']=="2")
-        {
+        {	
             $totalresume = M('Resume')->where(array('uid'=>$id))->count();
             $html.="发布简历：{$totalresume}条<br/>";
         }

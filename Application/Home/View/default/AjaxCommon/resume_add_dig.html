@@ -8,7 +8,7 @@
         </div>
         <div class="creat_main">
             <div class="lis">
-                <span class="mr18"><input type="text" name="fullname" id="fullname" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5]/g,'')" placeholder="姓名" class="common width177 name"></span>
+                <span class="mr18"><input type="text" name="fullname" id="fullname" placeholder="姓名" class="common width177 name"></span>
                 <span class="mr18">
                     <div class="common share_ddl width177 J_dropdown J_listitme_parent">
                         <span class="J_listitme_text">期望薪资</span><em></em>
@@ -397,6 +397,7 @@
     $('#btnCreatResume').die().live('click', function() {
         var no_apply = eval("{$no_apply}");
         var fullnameValue = $.trim($('input[name="fullname"]').val());
+        var str=/[^\u4e00-\u9fa5]/g;
         var sexValue = $.trim($('input[name="sex"]').val());
         var birthdateValue = $.trim($('input[name="birthdate"]').val());
         var educationValue = $.trim($('#education').val());
@@ -415,36 +416,48 @@
             disapperTooltip("remind", "请选择要申请的职位");
             return false;
         }
+        if (fullnameValue == "") {
+            $('input[name="fullname"]').addClass('error_creat').focus();
+            disapperTooltip("remind", "请填写姓名");
+            return false;
+        }
+        if (fullnameValue != "" && fullnameValue.length > 5) {
+            disapperTooltip("remind", "姓名不得超过5个汉字");
+            $('input[name="fullname"]').addClass('error_creat').focus();
+            return false;
+        }
+        if (str.test(fullnameValue)) {
+           disapperTooltip("remind", "姓名必须是纯汉字");
+            return false;
+        }
         if (intentionJobsValue == "") {
             $('.J_creat_category').addClass('error_creat');
+            disapperTooltip("remind", "请选择意向职位");
             return false;
         }
         if (wageValue == "") {
             $('input[name="wage"]').closest('.share_ddl').addClass('error_creat');
+            disapperTooltip("remind", "请选择薪资");
             return false;
         }
         if (districtValue == "") {
             $('.J_creat_address').addClass('error_creat');
+            disapperTooltip("remind", "请选择意向地区");
             return false;
         }
         if (experienceValue == "") {
             $('input[name="experience"]').closest('.share_ddl').addClass('error_creat');
+            disapperTooltip("remind", "请选择工作经验");
             return false;
         }
         if (educationValue == "") {
             $('input[name="education"]').closest('.share_ddl').addClass('error_creat');
+            disapperTooltip("remind", "请选择学历");
             return false;
         }
         if (birthdateValue == "") {
             $('input[name="birthdate"]').closest('.share_ddl').addClass('error_creat');
-            return false;
-        }
-        if (fullnameValue == "") {
-            $('input[name="fullname"]').addClass('error_creat').focus();
-            return false;
-        }
-        if (fullnameValue != "" && fullnameValue.length > 10) {
-            $('input[name="fullname"]').addClass('error_creat').focus();
+            disapperTooltip("remind", "请选择出生年份");
             return false;
         }
         if (sexValue == "") {

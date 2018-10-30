@@ -111,7 +111,13 @@
 </div>
 
 <script type="text/javascript">
-    
+    if(parseInt("{$mypoints}") > parseInt($("#total_points").val())){
+            $(".points_pay_increment").show();
+            $(".cash_pay_increment").hide();
+        }else{
+            $(".points_pay_increment").hide();
+            $(".cash_pay_increment").show();
+        }
     $(".cash_pay_submit").click(function(){
         $("#payment_name").val($(this).attr('payment'));
         $("#payment_name_increment").val($(this).attr('payment'));
@@ -150,20 +156,25 @@
         $("#project_id").val($(this).attr("project_id"));
         $("#total_points").val($(this).attr("need_points"));
         $('#J_integralforcash_input_increment').val(0);
-        $(".points_pay_increment").hide();
-        $(".cash_pay_increment").show();
+        if(parseInt("{$mypoints}") > parseInt($("#total_points").val())){
+            $(".points_pay_increment").show();
+            $(".cash_pay_increment").hide();
+        }else{
+            $(".points_pay_increment").hide();
+            $(".cash_pay_increment").show();
+        }
         select_pay_type();
     });
     function select_pay_type(){
         var mypoints = parseInt("{$mypoints}");
         var current_points = parseInt($("#total_points").val());
-        /*if(mypoints<current_points){
+        if(mypoints<current_points){
             $('#J_integralforcash_input_increment').val(mypoints);
             $('#deductible_increment').val(mypoints);
         }else{
             $('#J_integralforcash_input_increment').val(current_points);
             $('#deductible_increment').val(current_points);
-        }*/
+        }
         //$('#J_integralforcash_input_increment').val(current_points);
         $('#deductible_increment').val(current_points);
         $(".need_points").html(current_points);

@@ -12,6 +12,10 @@ class AjaxPersonalController extends FrontendController{
      * [resume_add_dig 快速创简历弹框]
      */
     public function resume_add_dig(){
+	/*$screen=C('qscms_rapid_registration_resume');
+	if($screen == 0){
+		$this->ajaxReturn(0,'快捷注册已关闭！');
+	}*/
         $no_apply = I('request.no_apply',0,'intval');
         if($no_apply==0){
             $jid = I('request.jid','','trim');
@@ -46,12 +50,7 @@ class AjaxPersonalController extends FrontendController{
         $data['utype'] = 2;
         $data['mobile'] = I('post.telephone',0,'trim');
         $smsVerify = session('gsou_reg_smsVerify');
-        if(!$smsVerify) $this->ajaxReturn(0,'验证码错误！');
-        if($data['mobile'] != $smsVerify['mobile']) $this->ajaxReturn(0,'手机号不一致！');//手机号不一致
-        if(time()>$smsVerify['time']+600) $this->ajaxReturn(0,'验证码过期！');//验证码过期
-        $vcode_sms = I('post.mobilevcode',0,'intval');
-        $mobile_rand=substr(md5($vcode_sms), 8,16);
-        if($mobile_rand!=$smsVerify['rand']) $this->ajaxReturn(0,'验证码错误！');//验证码错误！
+         if(true !== $tip = verify_mobile($data['mobile'],$smsVerify,I('post.mobilevcode', 0, 'intval'))) $this->ajaxReturn(0, $tip);
         $passport = $this->_user_server();
         if(false === $data = $passport->register($data)) $this->ajaxReturn(0,$passport->get_error());
 

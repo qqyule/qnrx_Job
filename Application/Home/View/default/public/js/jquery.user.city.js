@@ -262,7 +262,8 @@
                 var thisCode = $(this).data('code');
                 var thisText = $(this).data('text');
                 if (!$(this).hasClass('noLimit')) {
-                    if ($('.categorySelect').length > 1) {
+					
+				if ($('.categorySelect').length > 1 || $('.categorySelect').length==1) {
                         $('[data-toggle="funCityModal"]').find('.J_resultcode_city').val(thisCode.split('.')[thisCode.split('.').length-1]);
                     } else {
                         $('[data-toggle="funCityModal"]').find('.J_resultcode_city').val(thisCode);

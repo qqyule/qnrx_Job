@@ -2,7 +2,7 @@
 namespace Admin\Controller;
 use Common\Controller\BackendController;
 class CompanyController extends BackendController{
-	public function _initialize() {
+    public function _initialize() {
         parent::_initialize();
         $this->_mod = D('CompanyProfile');
     }
@@ -204,13 +204,6 @@ class CompanyController extends BackendController{
             }
         }
     }
-    public function _after_select($info){
-        $qq_bind = D('MembersBind')->where(array('uid'=>$info['uid'],'type'=>'qq'))->find();
-        if($qq_bind){
-            $info['qq_openid'] = 1;
-        }
-        return $info;
-    }
     public function _before_update($data){
         if($this->_name == 'Members'){
             if(C('qscms_sitegroup_open') && C('qscms_sitegroup_domain') && C('qscms_sitegroup_secret_key') && C('qscms_sitegroup_id')){
@@ -271,8 +264,12 @@ class CompanyController extends BackendController{
                 $tagStr['id'] = implode(",",$tagArr['id']);
                 $tagStr['cn'] = implode(",",$tagArr['cn']);
             }
-            $company_profile['user'] = D('Members')->get_user_one(array('uid'=>$company_profile['uid']));
-            $this->assign('company_user',$company_profile['user']);
+            $company_user = D('Members')->get_user_one(array('uid'=>$company_profile['uid']));
+            $qq_bind = D('MembersBind')->where(array('uid'=>$company_profile['uid'],'type'=>'qq'))->find();
+            if($qq_bind){
+                $company_user['qq_openid'] = 1;
+            }
+            $this->assign('company_user',$company_user);
             $this->assign('userpoints',D('MembersPoints')->get_user_points($company_profile['uid']));
             $this->assign('setmeal',D('MembersSetmeal')->get_user_setmeal($company_profile['uid']));
             $this->assign('givesetmeal',D('Setmeal')->where(array('display'=>1))->order('show_order desc,id')->getField('id,setmeal_name'));
@@ -455,12 +452,12 @@ class CompanyController extends BackendController{
         $pager = pager($data_count, $pagesize);
         $page = $pager->fshow();
         $this->assign("page", $page);
-		if(!I('get.page')){
-			$row=$pager->listRows;
-		}else{
-			$pg=I('get.page');
-			$row=$pg*$pager->listRows;
-		}
+        if(!I('get.page')){
+            $row=$pager->listRows;
+        }else{
+            $pg=I('get.page');
+            $row=$pg*$pager->listRows;
+        }
         foreach ($resumelist as $key => $value) {
             if ($value['display_name']=="2")
             {
@@ -482,10 +479,10 @@ class CompanyController extends BackendController{
             }
             $resumelist[$key]['intention_jobs']=cut_str($value['intention_jobs'],10,0,'..');
             $resumelist[$key]['age']=date('Y')-$value['birthdate'];
-			if($key>$pager->firstRow && $key<=$row){
-				$table_data[] = $resumelist[$key];
-				
-			}
+            if($key>$pager->firstRow && $key<=$row){
+                $table_data[] = $resumelist[$key];
+                
+            }
             if(!IS_AJAX){
                 $count_num['login']++;
                 if($value['sex']>0){
@@ -898,15 +895,11 @@ class CompanyController extends BackendController{
             $ismoney=1;
         }
         $data['uid'] = $id;
+        $data['reg_service'] = I('post.reg_service',0,'intval');
         D('Members')->user_register($data);
         if(I('post.regpoints')=='y'){
             $regpoints_num = I('post.regpoints_num',0,'intval');
             D('MembersPoints')->report_deal($id,1,$regpoints_num);
-        }
-        $reg_service=I('post.reg_service',0,'intval');
-        if ($reg_service>0)
-        {
-            D('MembersSetmeal')->set_members_setmeal($id,$reg_service);
         }
         $company_mod=D('CompanyProfile');
         $company_mod->uid=$id;

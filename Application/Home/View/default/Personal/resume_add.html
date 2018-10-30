@@ -29,7 +29,7 @@
 				<td>
 
 				<div class="input_245_34_div2">
-					<input name="fullname" id="fullname" type="text"  dir="no_focus" onkeyup="this.value=this.value.replace(/[^\u4e00-\u9fa5]/g,'')" class="inputst r_inputst" value="{$userprofile.realname}"/>
+					<input name="fullname" id="fullname" type="text"  dir="no_focus" class="inputst r_inputst" value="{$userprofile.realname}"/>
 					<div class="righttxt J_tooltip J_listitme_parent">
 					 	<span class="J_listitme_text"><if condition="C('qscms_default_display_name') eq 1">完全公开<elseif condition="C('qscms_default_display_name') eq 2"/>显示编号<else />隐藏名字</if></span>
 					 	<div class="dropdowbox14 J_tooltip_menu">
@@ -359,6 +359,7 @@
         $('#J_saveresume').addClass('btn_disabled').prop('disabled', !0);
 		var titleValue = $.trim($('#title').val());
 		var fullnameValue = $.trim($('#fullname').val());
+		var str=/[^\u4e00-\u9fa5]/g;
 		var displaynameValue = $.trim($('#display_name').val());
 		var sexValue = $.trim($('#sex').val());
 		var birthdateValue = $.trim($('#birthdate').val());
@@ -396,6 +397,11 @@
             $('#J_saveresume').removeClass('btn_disabled').prop('disabled', 0);
 			return false;
 		}
+		if(str.test(fullnameValue)){
+			  disapperTooltip("remind", "简历姓名必须是纯汉字");
+              $('#J_saveresume').removeClass('btn_disabled').prop('disabled', 0);
+              return false;
+		  }
 		if (displaynameValue == "") {
 			disapperTooltip("remind", "请选择简历保密方式");
             $('#J_saveresume').removeClass('btn_disabled').prop('disabled', 0);
