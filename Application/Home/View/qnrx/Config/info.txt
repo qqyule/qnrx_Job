@@ -1,4 +1,0 @@
-name:黔南热线人才系统
-version:1.0
-author:黔南热线人才系统
-authorurl:http://www.qnz.com.cn

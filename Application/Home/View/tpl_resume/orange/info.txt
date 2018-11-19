@@ -1,4 +1,0 @@
-name:橙色
-version:1.0
-author:黔南热线
-authorurl:http://www.qnz.com.cn
